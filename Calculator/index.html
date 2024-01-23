@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=
+    
+    , initial-scale=1.0"
+    />
+    <title>SumOnly</title>
+  </head>
+  <body>
+    <h1>Calculate Sum:</h1>
+    <p>Number 1</p>
+    <input type="number" id="num1" name="" id="" />
+    <p>Number 2</p>
+    <input type="number" name="" id="num2" id="" />
+    <button id="btn" onclick="sum()">Calculate</button>
+    <h2>
+      Sum is:
+      <span id="sum"></span>
+    </h2>
+    <hr />
+
+    <h1>Calculate Simple interest:</h1>
+    <p>Principal amount</p>
+    <input type="number" id="amt" name="" id="" />
+    <p>Rate of Interest</p>
+    <input type="number" name="" id="roi" id="" />
+    <p>Time (in years) :</p>
+    <input type="number" name="" id="time" id="" />
+    <button id="btn" onclick="simpleint()">Calculate</button>
+    
+    <h2>Simple Interest : <span id="simpleintans">Simple Int</span></h2>
+    <h2>Total Amount : <span id="amountans"></span> </h2>
+
+    <script>
+      async function simpleint() {
+        const p = document.getElementById("amt").value;
+        const roi = document.getElementById("roi").value;
+        const t = document.getElementById("time").value;
+
+        const element = document.getElementById("simpleintans");
+        const totalamt = document.getElementById("amountans");
+        const response = await fetch(
+          "http://localhost:3000/simpleint?p=" + p + "&roi=" + roi + "&t=" + t
+        );
+        const result = await response.text();
+        element.innerHTML = result;
+        totalamt.innerHTML = parseInt(p) + parseInt(result)
+      }
+
+      async function sum() {
+        const num1 = document.getElementById("num1").value;
+        const num2 = document.getElementById("num2").value;
+        // getting the 2 variables for their op
+
+        const element = document.getElementById("sum");
+
+        const response = await fetch(
+          "http://localhost:3000/sum?a=" + num1 + "&b=" + num2
+        );
+        const ans = await response.text();
+        element.innerHTML = ans;
+      }
+    </script>
+  </body>
+</html>
